@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+
+<title>Для моей любимой ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:#fff0f6;
+font-family:'Comfortaa',sans-serif;
+text-align:center;
+overflow:hidden;
+}
+
+.screen{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+}
+
+.active{
+display:flex;
+}
+
+h1{
+font-family:'Pacifico',cursive;
+color:#ff3c82;
+font-size:38px;
+}
+
+button{
+background:#ff3c82;
+color:white;
+border:none;
+padding:14px 26px;
+border-radius:20px;
+font-size:18px;
+cursor:pointer;
+margin-top:20px;
+}
+
+/* фото */
+
+.photos img{
+
+width:220px;
+border-radius:20px;
+margin:10px;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+}
+
+/* карточки */
+
+.card{
+
+background:white;
+width:300px;
+padding:20px;
+margin:10px;
+border-radius:20px;
+box-shadow:0 6px 18px rgba(0,0,0,0.12);
+cursor:pointer;
+font-size:18px;
+transition:0.3s;
+
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.answer{
+
+background:#ffe6f0;
+padding:15px;
+border-radius:15px;
+margin-top:10px;
+
+}
+
+/* игра */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,90px);
+gap:15px;
+margin-top:20px;
+}
+
+.gameCard{
+
+width:90px;
+height:90px;
+background:#ff6aa2;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:36px;
+cursor:pointer;
+color:white;
+
+}
+
+/* финал */
+
+.final{
+background:linear-gradient(135deg,#ffd6e7,#fff0f6);
+}
+
+.finalText{
+max-width:500px;
+font-size:20px;
+line-height:1.6;
+}
+
+/* подпись */
+
+.signature{
+
+margin-top:30px;
+font-size:16px;
+opacity:0.7;
+
+}
+
+/* падающие сердечки */
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.heart{
+position:absolute;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<!-- старт -->
+
+<div id="menu" class="screen active">
+
+<h1>Привет любимая ❤️</h1>
+
+<p>Я сделал для тебя небольшой сайт</p>
+
+<button onclick="next('photos')">Начать</button>
+
+</div>
+
+<!-- фото -->
+
+<div id="photos" class="screen">
+
+<h1>Ты самая красивая ❤️</h1>
+
+<div class="photos">
+
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+
+</div>
+
+<button onclick="next('love')">Дальше</button>
+
+</div>
+
+<!-- почему люблю -->
+
+<div id="love" class="screen">
+
+<h1>Почему я тебя люблю</h1>
+
+<div class="card" onclick="toggleAnswer(this,
+'Твоя улыбка делает мой мир намного счастливее ❤️')">
+Твоя улыбка
+</div>
+
+<div class="card" onclick="toggleAnswer(this,
+'Ты самая нежная и добрая девушка ❤️')">
+Твоя нежность
+</div>
+
+<div class="card" onclick="toggleAnswer(this,
+'Я хочу прожить своё будущее рядом с тобой ❤️')">
+Наше будущее
+</div>
+
+<button onclick="next('game')">Дальше</button>
+
+</div>
+
+<!-- игра найди сердце -->
+
+<div id="game" class="screen">
+
+<h1>Найди моё сердце ❤️</h1>
+
+<p>Под одной карточкой спрятано моё сердце</p>
+
+<div id="heartGame" class="grid"></div>
+
+<p id="gameMessage"></p>
+
+<button id="nextAfterGame" onclick="next('quiz')" style="display:none;">
+Дальше
+</button>
+
+</div>
+
+<!-- новая игра -->
+
+<div id="quiz" class="screen">
+
+<h1>Угадай мой ответ ❤️</h1>
+
+<div class="card" onclick="showQuiz('Потому что твоя улыбка делает мой день лучше ❤️')">
+Что я люблю в тебе больше всего?
+</div>
+
+<div class="card" onclick="showQuiz('Я люблю когда мы просто проводим время вместе ❤️')">
+Какой мой любимый момент с тобой?
+</div>
+
+<div class="card" onclick="showQuiz('Наше будущее вместе ❤️')">
+О чём я чаще всего думаю?
+</div>
+
+<div id="quizAnswer"></div>
+
+<button onclick="next('future')">Дальше</button>
+
+</div>
+
+<!-- будущее -->
+
+<div id="future" class="screen">
+
+<h1>Наше будущее 💭</h1>
+
+<div class="card" onclick="toggleAnswer(this,
+'Я очень хочу путешествовать вместе с тобой ❤️')">
+Путешествия
+</div>
+
+<div class="card" onclick="toggleAnswer(this,
+'Может однажды у нас будет уютный дом ❤️')">
+Наш дом
+</div>
+
+<div class="card" onclick="toggleAnswer(this,
+'Я хочу ещё больше счастливых воспоминаний с тобой ❤️')">
+Приключения
+</div>
+
+<div class="card" onclick="toggleAnswer(this,
+'Самое главное для меня — чтобы мы были счастливы вместе ❤️')">
+Счастье вместе
+</div>
+
+<button onclick="next('final')">Дальше</button>
+
+</div>
+
+<!-- финал -->
+
+<div id="final" class="screen final">
+
+<h1>Я люблю тебя ❤️</h1>
+
+<div class="finalText">
+
+<p>
+Каждый момент рядом с тобой  
+делает мою жизнь счастливее.
+</p>
+
+<p>
+Ты для меня больше чем просто человек.  
+Ты моё вдохновение, тепло и радость.
+</p>
+
+<p>
+Спасибо тебе за то  
+что ты есть в моей жизни.
+</p>
+
+<p>
+Я люблю тебя сегодня, завтра  
+и всегда ❤️
+С днём рождения
+</p>
+
+</div>
+
+<div class="signature">
+by onthesky<br>
+для Настюхи ❤️
+</div>
+
+</div>
+
+<script>
+
+/* переключение экранов */
+
+function next(id){
+
+document.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("active"))
+
+document.getElementById(id)
+.classList.add("active")
+
+}
+
+/* карточки */
+
+function toggleAnswer(card,text){
+
+let existing=card.querySelector(".answer")
+
+if(existing){
+existing.remove()
+return
+}
+
+let div=document.createElement("div")
+
+div.className="answer"
+div.innerText=text
+
+card.appendChild(div)
+
+}
+
+/* игра найди сердце */
+
+const grid=document.getElementById("heartGame")
+
+let heart=Math.floor(Math.random()*9)
+
+for(let i=0;i<9;i++){
+
+let card=document.createElement("div")
+
+card.className="gameCard"
+card.innerText="?"
+
+card.onclick=()=>{
+
+if(card.innerText!=="?")return
+
+if(i===heart){
+
+card.innerText="❤️"
+
+document.getElementById("gameMessage").innerText=
+"Ты нашла моё сердце ❤️"
+
+document.getElementById("nextAfterGame").style.display="block"
+
+}
+else{
+
+card.innerText="💌"
+
+}
+
+}
+
+grid.appendChild(card)
+
+}
+
+/* квиз */
+
+function showQuiz(text){
+
+let div=document.getElementById("quizAnswer")
+
+div.innerHTML='<div class="answer">'+text+'</div>'
+
+}
+
+/* падающие сердечки */
+
+const hearts=document.querySelector(".hearts")
+
+for(let i=0;i<30;i++){
+
+let h=document.createElement("div")
+
+h.className="heart"
+h.innerHTML="❤️"
+
+h.style.left=Math.random()*100+"vw"
+h.style.fontSize=(15+Math.random()*20)+"px"
+h.style.animationDuration=(3+Math.random()*5)+"s"
+
+hearts.appendChild(h)
+
+}
+
+</script>
+
+</body>
+</html>
